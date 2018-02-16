@@ -27,7 +27,11 @@
     </branches>
     <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
     <submoduleCfg class="list"/>
-    <extensions/>
+    <extensions>
+      <org.jenkinsci.plugins.gittagmessage.GitTagMessageExtension plugin="git-tag-message@1.6.1">
+        <useMostRecentTag>true</useMostRecentTag>
+      </org.jenkinsci.plugins.gittagmessage.GitTagMessageExtension>
+    </extensions>
   </scm>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
@@ -65,6 +69,10 @@ gvt restore
 
 cd cmd/cataloguesvc/
 CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o $WORKSPACE/app/catalogue github.com/microservices-demo/catalogue/cmd/cataloguesvc
+cd $WORKSPACE/app/
+zip catalogue-$GIT_TAG_NAME.zip catalogue
+#mv catalogue-$GIT_TAG_NAME.zip /tmp/
+#tar -cvzf catalogue-$GIT_TAG_NAME.tar.gz catalogue
 </command>
     </hudson.tasks.Shell>
   </builders>
@@ -75,6 +83,66 @@ CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o $WORKSPACE/app/catalo
       <cleanupParameter></cleanupParameter>
       <externalDelete></externalDelete>
     </hudson.plugins.ws__cleanup.PreBuildCleanup>
+    <org.jfrog.hudson.generic.ArtifactoryGenericConfigurator plugin="artifactory@2.14.0">
+      <details>
+        <artifactoryName>artifactory-server</artifactoryName>
+        <artifactoryUrl>http://188.166.236.188:9081/artifactory</artifactoryUrl>
+        <stagingPlugin/>
+      </details>
+      <resolverDetails>
+        <artifactoryName>artifactory-server</artifactoryName>
+        <artifactoryUrl>http://188.166.236.188:9081/artifactory</artifactoryUrl>
+        <stagingPlugin/>
+      </resolverDetails>
+      <deployerCredentialsConfig>
+        <credentials>
+          <username></username>
+          <password></password>
+        </credentials>
+        <credentialsId></credentialsId>
+        <overridingCredentials>false</overridingCredentials>
+        <ignoreCredentialPluginDisabled>false</ignoreCredentialPluginDisabled>
+      </deployerCredentialsConfig>
+      <resolverCredentialsConfig>
+        <credentials>
+          <username></username>
+          <password></password>
+        </credentials>
+        <credentialsId></credentialsId>
+        <overridingCredentials>false</overridingCredentials>
+        <ignoreCredentialPluginDisabled>false</ignoreCredentialPluginDisabled>
+      </resolverCredentialsConfig>
+      <useSpecs>true</useSpecs>
+      <uploadSpec>
+        <spec>{
+    &quot;files&quot;: [
+        {
+            &quot;pattern&quot;: &quot;app/(*).zip&quot;,
+            &quot;target&quot;: &quot;generic-local/catalogue/&quot;,
+            &quot;recursive&quot;: &quot;false&quot;
+        }
+    ]
+}</spec>
+      </uploadSpec>
+      <downloadSpec>
+        <spec></spec>
+      </downloadSpec>
+      <deployPattern></deployPattern>
+      <resolvePattern></resolvePattern>
+      <matrixParams></matrixParams>
+      <deployBuildInfo>true</deployBuildInfo>
+      <includeEnvVars>false</includeEnvVars>
+      <envVarsPatterns>
+        <includePatterns></includePatterns>
+        <excludePatterns>*password*,*secret*,*key*</excludePatterns>
+      </envVarsPatterns>
+      <discardOldBuilds>false</discardOldBuilds>
+      <discardBuildArtifacts>true</discardBuildArtifacts>
+      <asyncBuildRetention>false</asyncBuildRetention>
+      <multiConfProject>false</multiConfProject>
+      <customBuildName></customBuildName>
+      <overrideBuildName>false</overrideBuildName>
+    </org.jfrog.hudson.generic.ArtifactoryGenericConfigurator>
     <org.jenkinsci.plugins.golang.GolangBuildWrapper plugin="golang@1.2">
       <goVersion>go</goVersion>
     </org.jenkinsci.plugins.golang.GolangBuildWrapper>

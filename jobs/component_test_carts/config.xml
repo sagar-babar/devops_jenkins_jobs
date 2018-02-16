@@ -12,7 +12,7 @@
   <triggers>
     <jenkins.triggers.ReverseBuildTrigger>
       <spec></spec>
-      <upstreamProjects>unit_test_carts,</upstreamProjects>
+      <upstreamProjects>unit_test_carts</upstreamProjects>
       <threshold>
         <name>SUCCESS</name>
         <ordinal>0</ordinal>
@@ -37,7 +37,7 @@ fi</command>
   </builders>
   <publishers>
     <hudson.tasks.BuildTrigger>
-      <childProjects>build_carts</childProjects>
+      <childProjects>package_carts</childProjects>
       <threshold>
         <name>SUCCESS</name>
         <ordinal>0</ordinal>
