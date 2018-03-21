@@ -30,11 +30,12 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>rm -r /tmp/carts
+      <command>rm -rf /tmp/carts
+mkdir -p /tmp
 cd /tmp	
 git clone https://github.com/udbc/carts.git
 cd carts/ 
-
+ls
 ./test/test.sh unit.py</command>
     </hudson.tasks.Shell>
   </builders>

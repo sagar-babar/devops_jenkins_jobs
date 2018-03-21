@@ -31,7 +31,11 @@
     </branches>
     <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
     <submoduleCfg class="list"/>
-    <extensions/>
+    <extensions>
+      <org.jenkinsci.plugins.gittagmessage.GitTagMessageExtension plugin="git-tag-message@1.6.1">
+        <useMostRecentTag>true</useMostRecentTag>
+      </org.jenkinsci.plugins.gittagmessage.GitTagMessageExtension>
+    </extensions>
   </scm>
   <canRoam>true</canRoam>
   <disabled>false</disabled>

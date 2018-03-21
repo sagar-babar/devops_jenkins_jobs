@@ -68,12 +68,12 @@
         <artifactoryUrl>http://188.166.236.188:9081/artifactory</artifactoryUrl>
         <deployReleaseRepository>
           <keyFromText></keyFromText>
-          <keyFromSelect>generic-local</keyFromSelect>
+          <keyFromSelect>libs-release-local</keyFromSelect>
           <dynamicMode>false</dynamicMode>
         </deployReleaseRepository>
         <deploySnapshotRepository>
           <keyFromText></keyFromText>
-          <keyFromSelect>generic-local</keyFromSelect>
+          <keyFromSelect>libs-release-local</keyFromSelect>
           <dynamicMode>false</dynamicMode>
         </deploySnapshotRepository>
         <stagingPlugin>
